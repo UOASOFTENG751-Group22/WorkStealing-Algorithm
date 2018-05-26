@@ -1,0 +1,13 @@
+Execution_Kind,Problem_Size,Exe_Time
+Sequential,20,27125
+ParaTask,20,10246
+Modified_ParaTask,20,10245
+Sequential,30,40288
+ParaTask,30,15704
+Modified_ParaTask,30,15777
+Sequential,40,53867
+ParaTask,40,20066
+Modified_ParaTask,40,20154
+Sequential,50,67549
+ParaTask,50,25743
+Modified_ParaTask,50,25610

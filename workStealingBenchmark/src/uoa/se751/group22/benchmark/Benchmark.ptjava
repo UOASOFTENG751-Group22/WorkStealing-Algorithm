@@ -6,37 +6,49 @@ import uoa.se751.group22.utils.Work;
 
 public class Benchmark{
 	
+	private static final String EXECUTION_TYPE_SEQ = "SEQUENTIAL";
+	
 	public static void main(String[] args) {
+		if (args.length != 2){
+			System.out.println("Please check the parameters of your execution command, 2 parameters are needed!");
+			return;
+		}
+		
 		ArrayList<Integer> itemsToProcess = new ArrayList<Integer>();
 		
-		int numItems = 20;
-		int granularityOfTask = 100;
-
-		TaskIDGroup group = new TaskIDGroup(numItems);
-		//-- Add the items to a list
-		for (int i = 0; i < numItems; i++) {
+		final String executionType = args[0].toUpperCase();
+		
+		final int problemSize = Integer.parseInt(args[1]);
+		int granularityOfTask = 200;
+		
+		//-- Add the work item to a list
+		for (int i = 0; i < problemSize; i++) {
 			itemsToProcess.add(granularityOfTask);
-			TaskID id = oneOffDoingWork(granularityOfTask);
-			group.add(id);
 		}
 		
-		System.out.println("Will process "+numItems+" items with granularity of "+granularityOfTask);
-		
-		long startTime = System.currentTimeMillis();
-		
-		//sequential
-//		for (int workItem : itemsToProcess) {
-//			doWork(workItem);
-//		}
-		
-		try {
-			group.waitTillFinished();
-		} catch (Exception e) {
-			e.printStackTrace();
+		if(EXECUTION_TYPE_SEQ.equals(executionType)) {
+			long startTime = System.currentTimeMillis();
+			for (int workItem : itemsToProcess) {
+				doWork(workItem);
+			}
+			long totalTime = System.currentTimeMillis() - startTime;
+			System.out.println(totalTime);
+		}else {
+			TaskIDGroup group = new TaskIDGroup(problemSize);
+			for (int i = 0; i < problemSize; i++) {
+				TaskID id = oneOffDoingWork(granularityOfTask);
+				group.add(id);
+			}
+			long startTime = System.currentTimeMillis();
+			try {
+				group.waitTillFinished();
+				long totalTime = System.currentTimeMillis() - startTime;
+				System.out.println(totalTime);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		
-		long totalTime = System.currentTimeMillis() - startTime;
-		System.out.println("Time: " + totalTime + " milliseconds");
 	}
 	
 	TASK private static void oneOffDoingWork(int granularity) {

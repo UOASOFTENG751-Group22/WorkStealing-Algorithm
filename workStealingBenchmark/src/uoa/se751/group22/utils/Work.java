@@ -1,7 +1,6 @@
 package uoa.se751.group22.utils;
 import java.awt.Color;
 
-
 public class Work {
 
 	public static void computeWork(int value) {
