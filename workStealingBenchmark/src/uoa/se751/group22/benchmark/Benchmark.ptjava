@@ -1,0 +1,49 @@
+package uoa.se751.group22.benchmark;
+
+import java.util.ArrayList;
+
+import uoa.se751.group22.utils.Work;
+
+public class Benchmark{
+	
+	public static void main(String[] args) {
+		ArrayList<Integer> itemsToProcess = new ArrayList<Integer>();
+		
+		int numItems = 20;
+		int granularityOfTask = 100;
+
+		TaskIDGroup group = new TaskIDGroup(numItems);
+		//-- Add the items to a list
+		for (int i = 0; i < numItems; i++) {
+			itemsToProcess.add(granularityOfTask);
+			TaskID id = oneOffDoingWork(granularityOfTask);
+			group.add(id);
+		}
+		
+		System.out.println("Will process "+numItems+" items with granularity of "+granularityOfTask);
+		
+		long startTime = System.currentTimeMillis();
+		
+		//sequential
+//		for (int workItem : itemsToProcess) {
+//			doWork(workItem);
+//		}
+		
+		try {
+			group.waitTillFinished();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		long totalTime = System.currentTimeMillis() - startTime;
+		System.out.println("Time: " + totalTime + " milliseconds");
+	}
+	
+	TASK private static void oneOffDoingWork(int granularity) {
+		doWork(granularity);
+	}
+	
+	private static void doWork(int granularity) {
+		Work.computeWork(granularity);
+	}
+}
