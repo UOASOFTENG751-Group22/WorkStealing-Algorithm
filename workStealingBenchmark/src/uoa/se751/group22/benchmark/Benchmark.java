@@ -156,16 +156,12 @@ public class Benchmark {//####[9]####
         if (EXECUTION_TYPE_SHARE.equals(executionType)) //####[82]####
         {//####[82]####
             success = ParaTask.setScheduling(ScheduleType.WorkSharing);//####[83]####
-            System.out.println("Set scheduling type: " + EXECUTION_TYPE_SHARE);//####[84]####
         } else if (EXECUTION_TYPE_STEAL.equals(executionType)) //####[86]####
         {//####[86]####
             success = ParaTask.setScheduling(ScheduleType.WorkStealing);//####[87]####
-            System.out.println("Set scheduling type: " + EXECUTION_TYPE_STEAL);//####[88]####
         } else {//####[90]####
             success = ParaTask.setScheduling(ScheduleType.MixedSchedule);//####[91]####
-            System.out.println("Set scheduling type: " + EXECUTION_TYPE_MIXED);//####[92]####
         }//####[93]####
-        System.out.println("Successfully set scheduling type: " + success);//####[94]####
         return success;//####[95]####
     }//####[96]####
 }//####[96]####
