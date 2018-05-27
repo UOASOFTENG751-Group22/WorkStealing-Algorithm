@@ -2,15 +2,31 @@ package uoa.se751.group22.benchmark;
 
 import java.util.ArrayList;
 
+import pt.runtime.ParaTask;
+import pt.runtime.ParaTask.ScheduleType;
 import uoa.se751.group22.utils.Work;
 
 public class Benchmark{
 	
 	private static final String EXECUTION_TYPE_SEQ = "SEQUENTIAL";
+	private static final String EXECUTION_TYPE_SHARE = "SHARE";
+	private static final String EXECUTION_TYPE_STEAL = "STEAL";
+	private static final String EXECUTION_TYPE_MIXED = "MIXED";
 	
+	
+	/**
+	 * Call with the Execution type and the number of items to process.
+	 * Execution types can be the following:
+	 * - sequential
+	 * - work stealing
+	 * - work sharing 
+	 * - mixed
+	 */
 	public static void main(String[] args) {
 		if (args.length != 2){
 			System.out.println("Please check the parameters of your execution command, 2 parameters are needed!");
+			System.out.println("param 1 : [sequential|share|steal|mixed]");
+			System.out.println("param 2 : no of tasks");
 			return;
 		}
 		
@@ -34,6 +50,8 @@ public class Benchmark{
 			long totalTime = System.currentTimeMillis() - startTime;
 			System.out.println(totalTime);
 		}else {
+			setParaTaskScheduling(executionType);
+			
 			TaskIDGroup group = new TaskIDGroup(problemSize);
 			for (int i = 0; i < problemSize; i++) {
 				TaskID id = oneOffDoingWork(granularityOfTask);
@@ -58,4 +76,23 @@ public class Benchmark{
 	private static void doWork(int granularity) {
 		Work.computeWork(granularity);
 	}
+	
+	private static boolean setParaTaskScheduling(String executionType) {
+		boolean success = false;
+		if (EXECUTION_TYPE_SHARE.equals(executionType)){
+			success = ParaTask.setScheduling(ScheduleType.WorkSharing);
+			System.out.println("Set scheduling type: " + EXECUTION_TYPE_SHARE);
+		} 
+		else if (EXECUTION_TYPE_STEAL.equals(executionType)){
+			success = ParaTask.setScheduling(ScheduleType.WorkStealing);
+			System.out.println("Set scheduling type: " + EXECUTION_TYPE_STEAL);
+		}
+		else {
+			success = ParaTask.setScheduling(ScheduleType.MixedSchedule);
+			System.out.println("Set scheduling type: " + EXECUTION_TYPE_MIXED);
+		}
+		System.out.println("Successfully set scheduling type: " + success);
+		return success;
+	}
+	
 }
