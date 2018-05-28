@@ -1,10 +1,10 @@
-# WorkStealing-Benchmarking
+## WorkStealing-Benchmarking
 
 Softeng project 3 - Work Stealing benchmarking part.
 
 This project aims at benchmarking the work stealing mechanism of original ParaTask project and our own implementation of work stealing algorithm which is integrated in ParaTask runtime. 
 
-# Benchmark implementation
+## Benchmark implementation
 
 1)	computation-intensive(controllable) program:  
     src:uoa.se751.group22.utils.Work  
