@@ -9,14 +9,17 @@ import uoa.se751.group22.utils.Work;
 public class ParaTaskTest{
 	
 	/** Sets schedule type for program */
-	private static final ScheduleType SCHEDULE_TYPE = ScheduleType.MixedSchedule;
+	private static final ScheduleType SCHEDULE_TYPE = ScheduleType.WorkStealing;
+	
+	static {
+		ParaTask.setScheduling(SCHEDULE_TYPE);
+	}
 	
 	public static void main(String[] args) {
-		ParaTask.setScheduling(SCHEDULE_TYPE);
 		ArrayList<Integer> itemsToProcess = new ArrayList<Integer>();
 
-		int numItems = 20;
-		int granularityOfTask = 100;
+		int numItems = 10000;
+		int granularityOfTask = 20;
 
 		TaskIDGroup group = new TaskIDGroup(numItems);
 		//-- Add the work item to a list

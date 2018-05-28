@@ -4,16 +4,16 @@ from shutil import rmtree
 import subprocess
 
 """ initialize variables """
-# problem_sizes = [20, 30, 40, 50, 60, 70, 80]
-iterations = 10
-problem_sizes = [20, 30, 40, 50]
+problem_sizes = [2000, 4000, 60000, 8000, 10000]
+iterations = 5
+# problem_sizes = [20, 30, 40, 50]
 resultFolder = "result"
 resultFileName = "data_set.csv"
 execution_kinds = ['Sequential', 'ParaTask', 'Modified_ParaTask']
 
 benchmark_java_file = "uoa.se751.group22.benchmark.Benchmark"
-ParaTask = "./lib/PTRuntime.jar"
-ParaTask_Modified = "./lib/ParaTask-WorkStealingRuntime-1.0.1.jar"
+ParaTask = "./ParaTask-Original.jar"
+ParaTask_Modified = "./ParaTask-WorkStealingRuntime-1.0.1.jar"
 
 """ delete exist result folder"""
 if os.path.exists(resultFolder):
@@ -30,15 +30,15 @@ def generate_data(file):
 """ write result to data_set.csv file"""
 def write_result(file, problem_size):
 	for i in range(iterations + 1):
-		exe_cmd_seq = "java -Xms1024M -Xmx6144M -cp .:%s:ParaTask-BenchmarkRuntime-1.0.0.jar %s SEQUENTIAL %d" %(ParaTask_Modified, benchmark_java_file, problem_size)
+		exe_cmd_seq = "java -Xms1024M -Xmx6144M -cp .:%s:ParaTask-BenchmarkRuntime-1.0.0.jar %s SEQUENTIAL %d" %(ParaTask, benchmark_java_file, problem_size)
 		exe_time_seq = subprocess.check_output(exe_cmd_seq, shell=True).decode('utf-8').strip('\r\n')
 		file.write(execution_kinds[0] + "," + str(problem_size) + "," + str(exe_time_seq) + "\n")
 
-		exe_cmd_para = "java -Xms1024M -Xmx6144M -cp .:%s:ParaTask-BenchmarkRuntime-1.0.0.jar %s PARALLEL %d" %(ParaTask_Modified, benchmark_java_file, problem_size)
+		exe_cmd_para = "java -Xms1024M -Xmx6144M -cp .:%s:ParaTask-BenchmarkRuntime-1.0.0.jar %s STEAL %d" %(ParaTask, benchmark_java_file, problem_size)
 		exe_time_para = subprocess.check_output(exe_cmd_para, shell=True).decode('utf-8').strip('\r\n')
 		file.write(execution_kinds[1] + "," + str(problem_size) + "," + str(exe_time_para) + "\n")
 
-		exe_cmd_para_modified = "java -Xms1024M -Xmx6144M -cp .:%s:ParaTask-BenchmarkRuntime-1.0.0.jar %s PARALLEL %d" %(ParaTask_Modified, benchmark_java_file, problem_size)
+		exe_cmd_para_modified = "java -Xms1024M -Xmx6144M -cp .:%s:ParaTask-BenchmarkRuntime-1.0.0.jar %s STEAL %d" %(ParaTask_Modified, benchmark_java_file, problem_size)
 		exe_time_para_modified = subprocess.check_output(exe_cmd_para_modified, shell=True).decode('utf-8').strip('\r\n')
 		file.write(execution_kinds[2] + "," + str(problem_size) + "," + str(exe_time_para_modified) + "\n")
 
