@@ -13,7 +13,7 @@ This project aims at benchmarking the work stealing mechanism of original ParaTa
     This program will initialize the problem size and schedule type during the execution time.
 3)  scripts:  
     run.py : used to generate benchmarking dataset  
-    >>>>>>>>>the program will generate the result folder to store data_set.csv file for us to analyse  
+    <p>      the program will generate the result folder to store data_set.csv file for us to analyse  </p>
     plotting.py : used to plot benchmarking graphs  
     >>>>>>>>>the program will generate the plot folder to store analysis.svg file which shows:  
     >>>>>>>>>>>>1) execution time changes with increasing problem size  
