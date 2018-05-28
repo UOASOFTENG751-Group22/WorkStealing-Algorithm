@@ -6,11 +6,11 @@ This project aims at benchmarking the work stealing mechanism of original ParaTa
 
 # Benchmark implementation
 
-1)	computation-intensive(controllable) program:
-    src:uoa.se751.group22.utils.Work
-2)  benchmark program:
-    src:uoa.se751.group22.benchmark.Benchmark.ptjava
+1)	computation-intensive(controllable) program:  
+    src:uoa.se751.group22.utils.Work  
+2)  benchmark program:  
+    src:uoa.se751.group22.benchmark.Benchmark.ptjava  
     This program will initialize the problem size and schedule type during the execution time.
-3)  scripts:
-    run.py : used to generate benchmarking dataset
+3)  scripts:  
+    run.py : used to generate benchmarking dataset  
     plotting.py : used to plot benchmarking graphs
