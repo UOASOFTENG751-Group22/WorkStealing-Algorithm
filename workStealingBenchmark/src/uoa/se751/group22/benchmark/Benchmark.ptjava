@@ -39,7 +39,7 @@ public class Benchmark{
 		final String executionType = args[0].toUpperCase();
 		
 		final int problemSize = Integer.parseInt(args[1]);
-		int granularityOfTask = 200;
+		int granularityOfTask = 20;
 		
 		//-- Add the work item to a list
 		for (int i = 0; i < problemSize; i++) {

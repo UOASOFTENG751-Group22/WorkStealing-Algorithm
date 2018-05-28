@@ -58,7 +58,7 @@ public class Benchmark {//####[9]####
         ArrayList<Integer> itemsToProcess = new ArrayList<Integer>();//####[37]####
         final String executionType = args[0].toUpperCase();//####[39]####
         final int problemSize = Integer.parseInt(args[1]);//####[41]####
-        int granularityOfTask = 200;//####[42]####
+        int granularityOfTask = 20;//####[42]####
         for (int i = 0; i < problemSize; i++) //####[45]####
         {//####[45]####
             itemsToProcess.add(granularityOfTask);//####[46]####
